@@ -1,0 +1,198 @@
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+struct node
+{
+    int data;
+    struct node *next;
+} *list = NULL, *p, *q, *r, *temp, *s;
+
+class singly_linked_list
+{
+
+public:
+    int value, choice;
+    void getdata()
+    {
+        do
+        {
+            cout << "Enter the choice:";
+            cout << "\n 1.Insert an element in the begining.\n2 Insert an element at the end \n3.Insert an element before a particular element \n4.Insert an element after a particular element \n5.Display \n 6.EXIT" << endl;
+            cin >> choice;
+            switch (choice)
+            {
+            case 1:
+                insert_at_beg();
+                break;
+
+            case 2:
+                insert_at_end();
+                break;
+
+            case 3:
+                insert_before_ele();
+                break;
+
+            case 4:
+                insert_after_ele();
+                break;
+            case 5:
+                display();
+                break;
+            case 6:
+                break;
+            }
+        } while (choice != 6);
+    }
+    void display()
+    {
+        if (list == NULL)
+        {
+            cout << endl
+                 << "List is empty :( :( ";
+        }
+        else
+        {
+            q = list;
+            while (q != NULL)
+            {
+                cout << q->data << "--->";
+                q = q->next;
+            }
+        }
+    }
+    void insert_at_beg()
+    {
+        p = (struct node *)malloc(sizeof(node));
+        cout << endl
+             << "Enter element" << endl;
+        cin >> value;
+        p->data = value;
+        if (list == NULL) //list is empty so create first node
+        {
+
+            p->next = NULL;
+            list = p;
+        }
+        else
+        {
+            p->next = list;
+            list = p;
+        }
+    }
+
+    void insert_at_end()
+    {
+        p = (struct node *)malloc(sizeof(node));
+        cout << endl
+             << "Enter element" << endl;
+        cin >> value;
+        p->data = value;
+        if (list == NULL) //list is empty so create first node
+        {
+
+            p->next = NULL;
+            list = p;
+        }
+        else
+        {
+            q = list;
+            while (q->next != NULL)
+            {
+                q = q->next;
+            }
+            q->next = p;
+            p->next = NULL;
+        }
+    }
+
+    void insert_before_ele()
+    {
+        int key;
+        if (list == NULL)
+        {
+            cout << endl
+                 << "List is empty :( :(";
+        }
+        else
+        {
+
+            cout << endl
+                 << "enter a key value before which you want to insert new element" << endl;
+            cin >> key;
+            cout << endl
+                 << "Enter element" << endl;
+            cin >> value;
+            p = (struct node *)malloc(sizeof(node));
+            p->data = value;
+            q = list;
+            while (q->data != key && q->next != NULL)
+            {
+                r = q;
+                q = q->next;
+            }
+            if (q->data == key)
+            {
+                if (list->data == key)
+                {
+                    p->next = q;
+                    list = p;
+                }
+                else
+                {
+                    r->next = p;
+                    p->next = q;
+                }
+            }
+            else
+            {
+                cout << endl
+                     << "Element not found :( :(";
+            }
+        }
+    }
+
+    void insert_after_ele()
+    {
+        int key;
+        if (list == NULL)
+        {
+            cout << endl
+                 << "List is empty :( :(";
+        }
+        else
+        {
+
+            cout << endl
+                 << "enter a key value after which you want to insert new element" << endl;
+            cin >> key;
+            cout << endl
+                 << "Enter element" << endl;
+            cin >> value;
+            p = (struct node *)malloc(sizeof(node));
+            p->data = value;
+            q = list;
+        }
+        while (q->data != key && q->next != NULL)
+        {
+            q = q->next;
+        }
+        if (q->data == key)
+        {
+
+            p->next = q->next;
+            q->next = p;
+        }
+        else
+        {
+            cout << endl
+                 << "Element not found :( :(";
+        }
+    }
+};
+int main()
+{
+    singly_linked_list s;
+    s.getdata();
+    return 0;
+}
